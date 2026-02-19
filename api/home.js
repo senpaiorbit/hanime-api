@@ -1,25 +1,26 @@
 // ============================================================
 // api/home.js — GET /api/home
-// Returns all home page sections (Recent Uploads, Trending, etc.)
+// Scrapes https://hanime.tv/ home page
+// Returns all 4 sections: Recent Uploads, New Releases, Trending, Random
 // ============================================================
 
-const { scrapHome } = require("../lib/scraper");
+const { scrapeHome } = require("../lib/scraper");
 const { handleOptions, sendJSON, sendError } = require("../lib/cors");
 
 module.exports = async function handler(req, res) {
   if (handleOptions(req, res)) return;
-
-  if (req.method !== "GET") {
-    return sendError(res, 405, "Method Not Allowed");
-  }
+  if (req.method !== "GET") return sendError(res, 405, "Method Not Allowed");
 
   try {
-    const data = await scrapHome();
+    const data = await scrapeHome();
+    const sectionNames = Object.keys(data.sections);
+
     return sendJSON(res, 200, {
-      ok:       true,
-      source:   data.source,
-      sections: data.sections,
-      scraped_at: new Date().toISOString(),
+      ok:            true,
+      source:        data.source,
+      section_count: sectionNames.length,
+      sections:      data.sections,
+      scraped_at:    new Date().toISOString(),
     });
   } catch (err) {
     console.error("[/api/home]", err.message);
