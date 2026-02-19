@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "name": "hanime-scraper",
+  "functions": {
+    "api/home.js":     { "maxDuration": 30 },
+    "api/video.js":    { "maxDuration": 30 },
+    "api/search.js":   { "maxDuration": 30 },
+    "api/trending.js": { "maxDuration": 30 }
+  },
+  "rewrites": [
+    { "source": "/api/home",     "destination": "/api/home.js"     },
+    { "source": "/api/video",    "destination": "/api/video.js"    },
+    { "source": "/api/search",   "destination": "/api/search.js"   },
+    { "source": "/api/trending", "destination": "/api/trending.js" },
+    { "source": "/(.*)",         "destination": "/public/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin",  "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS" },
+        { "key": "Cache-Control",                "value": "s-maxage=60, stale-while-revalidate=300" }
+      ]
+    }
+  ]
+}
