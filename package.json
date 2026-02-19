@@ -1,19 +1,14 @@
 {
   "name": "hanime-api",
   "version": "1.0.0",
-  "description": "Vercel API for scraping hanime.tv",
+  "description": "Vercel serverless API scraper for hanime.tv",
   "type": "module",
   "scripts": {
     "dev": "vercel dev",
-    "build": "echo build complete",
-    "vercel-build": "echo hello"
+    "vercel-build": "mkdir -p public"
   },
-  "dependencies": {
-    "axios": "^1.7.2",
-    "cheerio": "^1.0.0",
-    "hono": "^4.7.10"
+  "engines": {
+    "node": ">=18.x"
   },
-  "devDependencies": {
-    "@types/node": "^22.0.0"
-  }
+  "license": "MIT"
 }
