@@ -8,297 +8,103 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
 <style>
   :root {
-    --gold: #f3c669;
-    --gold-dim: #b89035;
-    --bg: #1a1a1a;
-    --surface: #242424;
-    --surface2: #2e2e2e;
-    --border: #383838;
-    --text: #e8e8e8;
-    --muted: #888;
-    --red: #ff5252;
-    --green: #69f0ae;
+    --gold: #f3c669; --gold-dim: #b89035;
+    --bg: #1a1a1a; --surface: #242424; --surface2: #2e2e2e;
+    --border: #383838; --text: #e8e8e8; --muted: #777;
+    --red: #ff5252; --green: #69f0ae; --blue: #82aaff;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Space Mono', monospace; font-size: 13px; min-height: 100vh; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Space Mono', monospace;
-    font-size: 13px;
-    min-height: 100vh;
-  }
-
-  /* ── Header ─────────────────────────────────────── */
   header {
     border-bottom: 1px solid var(--border);
-    padding: 24px 32px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    position: sticky;
-    top: 0;
-    background: rgba(26,26,26,0.96);
-    backdrop-filter: blur(10px);
-    z-index: 100;
+    padding: 18px 28px;
+    display: flex; align-items: center; gap: 16px;
+    position: sticky; top: 0;
+    background: rgba(26,26,26,.97); backdrop-filter: blur(12px); z-index: 100;
   }
-  .logo {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px;
-    color: var(--text);
-    letter-spacing: -0.5px;
-  }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 20px; }
   .logo span { color: var(--gold); }
-  .badge {
-    background: var(--gold);
-    color: #111;
-    font-size: 9px;
-    font-weight: 700;
-    padding: 3px 8px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-  }
-  .status-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 6px var(--green);
-    margin-left: auto;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50%      { opacity: 0.4; }
-  }
+  .badge { background: var(--gold); color: #111; font-size: 9px; font-weight: 700; padding: 3px 8px; letter-spacing: 1.5px; text-transform: uppercase; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); margin-left: auto; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-  /* ── Layout ─────────────────────────────────────── */
-  main { display: flex; height: calc(100vh - 65px); }
+  main { display: flex; height: calc(100vh - 57px); }
 
-  /* ── Sidebar ─────────────────────────────────────── */
-  aside {
-    width: 240px;
-    flex-shrink: 0;
-    border-right: 1px solid var(--border);
-    padding: 24px 16px;
-    overflow-y: auto;
-  }
-  .sidebar-section { margin-bottom: 28px; }
-  .sidebar-label {
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
-    padding-left: 8px;
-  }
-  .endpoint-btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    padding: 9px 10px;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    font-family: inherit;
-    font-size: 12px;
-    text-align: left;
-    cursor: pointer;
-    transition: all .15s;
+  aside { width: 220px; flex-shrink: 0; border-right: 1px solid var(--border); padding: 20px 12px; overflow-y: auto; }
+  .sl { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin: 0 8px 8px; display: block; margin-top: 20px; }
+  .sl:first-child { margin-top: 0; }
+  .ep-btn {
+    display: flex; align-items: center; gap: 8px; width: 100%;
+    padding: 8px 10px; border: none; background: transparent;
+    color: var(--muted); font-family: inherit; font-size: 12px;
+    text-align: left; cursor: pointer; transition: all .15s;
     border-left: 2px solid transparent;
   }
-  .endpoint-btn:hover { color: var(--text); background: var(--surface); }
-  .endpoint-btn.active {
-    color: var(--gold);
-    border-left-color: var(--gold);
-    background: rgba(243,198,105,0.06);
-  }
-  .method-tag {
-    font-size: 9px;
-    padding: 2px 6px;
-    background: rgba(243,198,105,0.15);
-    color: var(--gold);
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
+  .ep-btn:hover { color: var(--text); background: var(--surface); }
+  .ep-btn.active { color: var(--gold); border-left-color: var(--gold); background: rgba(243,198,105,.06); }
+  .mtag { font-size: 9px; padding: 2px 5px; background: rgba(243,198,105,.12); color: var(--gold); border-radius: 2px; flex-shrink: 0; }
 
-  /* ── Content ─────────────────────────────────────── */
-  section.content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 28px 32px;
-  }
+  section.content { flex: 1; overflow-y: auto; padding: 24px 28px; }
 
-  /* ── URL Bar ─────────────────────────────────────── */
-  .url-bar {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 10px 16px;
-    margin-bottom: 20px;
-  }
+  .url-bar { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); padding: 9px 14px; margin-bottom: 16px; }
   .url-bar .method { color: var(--gold); font-weight: 700; font-size: 11px; }
-  .url-bar input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 13px;
-    outline: none;
-  }
-  .send-btn {
-    background: var(--gold);
-    color: #111;
-    border: none;
-    padding: 6px 18px;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: opacity .15s;
-  }
-  .send-btn:hover { opacity: 0.85; }
-  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .url-bar input { flex: 1; background: transparent; border: none; color: var(--text); font-family: inherit; font-size: 13px; outline: none; }
+  .send-btn { background: var(--gold); color: #111; border: none; padding: 6px 16px; font-family: inherit; font-size: 11px; font-weight: 700; letter-spacing: 1px; cursor: pointer; transition: opacity .15s; white-space: nowrap; }
+  .send-btn:hover { opacity: .85; }
+  .send-btn:disabled { opacity: .35; cursor: not-allowed; }
 
-  /* ── Params ─────────────────────────────────────── */
-  .params-section { margin-bottom: 20px; }
-  .params-title {
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 10px;
+  .params { margin-bottom: 16px; }
+  .ptitle { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .prow { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .prow label { color: var(--muted); width: 65px; flex-shrink: 0; font-size: 11px; }
+  .prow input, .prow select {
+    flex: 1; background: var(--surface); border: 1px solid var(--border);
+    color: var(--text); font-family: inherit; font-size: 12px; padding: 5px 9px;
+    outline: none; transition: border-color .15s;
   }
-  .param-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-  .param-row label { color: var(--muted); width: 70px; flex-shrink: 0; }
-  .param-row input {
-    flex: 1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-family: inherit;
-    font-size: 12px;
-    padding: 6px 10px;
-    outline: none;
-    transition: border-color .15s;
-  }
-  .param-row input:focus { border-color: var(--gold-dim); }
-  .param-row input::placeholder { color: #555; }
+  .prow input:focus, .prow select:focus { border-color: var(--gold-dim); }
+  .prow input::placeholder { color: #444; }
+  .prow select option { background: var(--surface2); }
 
-  /* ── Response ─────────────────────────────────────── */
-  .response-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
-  }
-  .response-title { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-  .status-pill {
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 2px;
-    font-weight: 700;
-  }
-  .status-pill.ok  { background: rgba(105,240,174,.15); color: var(--green); }
-  .status-pill.err { background: rgba(255,82,82,.15);   color: var(--red);   }
-  .time-label { margin-left: auto; color: var(--muted); font-size: 11px; }
+  .resp-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .resp-title { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .spill { font-size: 10px; padding: 2px 7px; font-weight: 700; }
+  .spill.ok  { background: rgba(105,240,174,.12); color: var(--green); }
+  .spill.err { background: rgba(255,82,82,.12); color: var(--red); }
+  .tl { margin-left: auto; color: var(--muted); font-size: 11px; }
 
-  pre#response-box {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    padding: 20px;
-    overflow: auto;
-    max-height: 480px;
-    font-size: 12px;
-    line-height: 1.7;
-    color: #ccc;
-    white-space: pre-wrap;
-    word-break: break-all;
+  pre#rbox {
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 18px; overflow: auto; max-height: 420px;
+    font-size: 11.5px; line-height: 1.75; color: #ccc; white-space: pre-wrap; word-break: break-all;
   }
-  .placeholder-msg {
-    color: var(--muted);
-    font-size: 12px;
-    padding: 40px 0;
-    text-align: center;
-  }
+  .ph { color: var(--muted); font-size: 12px; padding: 36px 0; text-align: center; }
 
-  /* ── Cards Grid ─────────────────────────────────── */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 12px;
-    margin-top: 20px;
-  }
-  .vid-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    overflow: hidden;
-    transition: border-color .2s, transform .2s;
-    cursor: pointer;
-  }
-  .vid-card:hover { border-color: var(--gold-dim); transform: translateY(-2px); }
-  .vid-card img {
-    width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    display: block;
-    background: var(--surface2);
-  }
-  .vid-card .card-info { padding: 8px 10px; }
-  .vid-card .card-name {
-    font-size: 11px;
-    color: var(--text);
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .vid-card .card-views { font-size: 10px; color: var(--muted); margin-top: 4px; }
-
-  /* ── Tabs (sections) ─────────────────────────────── */
-  .tabs { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
-  .tab-btn {
-    padding: 5px 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-family: inherit;
-    font-size: 11px;
-    cursor: pointer;
-    transition: all .15s;
-  }
+  .tabs { display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: wrap; }
+  .tab-btn { padding: 5px 12px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); font-family: inherit; font-size: 11px; cursor: pointer; transition: all .15s; }
   .tab-btn:hover { color: var(--text); }
   .tab-btn.active { background: var(--gold); color: #111; border-color: var(--gold); font-weight: 700; }
 
-  /* ── Loading ─────────────────────────────────────── */
-  .spinner {
-    width: 18px; height: 18px;
-    border: 2px solid var(--border);
-    border-top-color: var(--gold);
-    border-radius: 50%;
-    animation: spin .7s linear infinite;
-    display: none;
-  }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-top: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--border); overflow: hidden; cursor: pointer; transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: var(--gold-dim); transform: translateY(-2px); }
+  .card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; background: var(--surface2); }
+  .card-info { padding: 7px 9px; }
+  .card-name { font-size: 10.5px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .card-sub { font-size: 10px; color: var(--muted); margin-top: 3px; display: flex; gap: 8px; }
+  .rank-badge { background: var(--gold); color: #111; font-size: 9px; font-weight: 700; padding: 1px 5px; display: inline-block; margin-bottom: 3px; }
+
+  .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin .7s linear infinite; display: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── JSON Highlighting ───────────────────────────── */
-  .json-key   { color: #82aaff; }
-  .json-str   { color: #c3e88d; }
-  .json-num   { color: #f78c6c; }
-  .json-bool  { color: var(--gold); }
-  .json-null  { color: var(--muted); }
+  .json-key  { color: var(--blue); }
+  .json-str  { color: #c3e88d; }
+  .json-num  { color: #f78c6c; }
+  .json-bool { color: var(--gold); }
+  .json-null { color: var(--muted); }
 
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); }
 </style>
@@ -306,282 +112,262 @@
 <body>
 
 <header>
-  <div class="logo">hanime<span>.</span>tv <span style="color:var(--muted);font-size:14px;font-family:'Space Mono'">scraper</span></div>
-  <div class="badge">API</div>
-  <div class="status-dot" title="Online"></div>
+  <div class="logo">hanime<span>.</span>tv <span style="color:var(--muted);font-size:13px;font-family:'Space Mono'">/ scraper api</span></div>
+  <div class="badge">v2</div>
+  <div class="dot" title="Ready"></div>
 </header>
 
 <main>
-  <!-- Sidebar -->
   <aside>
-    <div class="sidebar-section">
-      <div class="sidebar-label">Endpoints</div>
-      <button class="endpoint-btn active" data-ep="home" onclick="selectEndpoint('home',this)">
-        <span class="method-tag">GET</span> /api/home
-      </button>
-      <button class="endpoint-btn" data-ep="trending" onclick="selectEndpoint('trending',this)">
-        <span class="method-tag">GET</span> /api/trending
-      </button>
-      <button class="endpoint-btn" data-ep="search" onclick="selectEndpoint('search',this)">
-        <span class="method-tag">GET</span> /api/search
-      </button>
-      <button class="endpoint-btn" data-ep="video" onclick="selectEndpoint('video',this)">
-        <span class="method-tag">GET</span> /api/video
-      </button>
-    </div>
-
-    <div class="sidebar-section">
-      <div class="sidebar-label">Quick Links</div>
-      <button class="endpoint-btn" onclick="quickFetch('/api/home')">
-        🏠 Home Sections
-      </button>
-      <button class="endpoint-btn" onclick="quickFetch('/api/trending')">
-        🔥 Trending Now
-      </button>
-    </div>
+    <span class="sl" style="margin-top:0">Endpoints</span>
+    <button class="ep-btn active" data-ep="home" onclick="sel('home',this)">
+      <span class="mtag">GET</span>/api/home
+    </button>
+    <button class="ep-btn" data-ep="trending" onclick="sel('trending',this)">
+      <span class="mtag">GET</span>/api/trending
+    </button>
+    <button class="ep-btn" data-ep="random" onclick="sel('random',this)">
+      <span class="mtag">GET</span>/api/random
+    </button>
+    <button class="ep-btn" data-ep="search" onclick="sel('search',this)">
+      <span class="mtag">GET</span>/api/search
+    </button>
+    <button class="ep-btn" data-ep="video" onclick="sel('video',this)">
+      <span class="mtag">GET</span>/api/video
+    </button>
+    <span class="sl">Quick</span>
+    <button class="ep-btn" onclick="quick('/api/home')">🏠 Home sections</button>
+    <button class="ep-btn" onclick="quick('/api/trending?period=month')">📈 Monthly top</button>
+    <button class="ep-btn" onclick="quick('/api/trending?period=week')">🔥 Weekly top</button>
+    <button class="ep-btn" onclick="quick('/api/random')">🎲 Random 24</button>
   </aside>
 
-  <!-- Main Content -->
   <section class="content">
 
-    <!-- URL Bar -->
+    <!-- URL bar -->
     <div class="url-bar">
       <span class="method">GET</span>
-      <input id="url-input" type="text" value="/api/home" spellcheck="false"/>
-      <div class="spinner" id="spinner"></div>
-      <button class="send-btn" id="send-btn" onclick="sendRequest()">SEND</button>
+      <input id="url" type="text" value="/api/home" spellcheck="false"
+             onkeydown="if(event.key==='Enter')go()"/>
+      <div class="spinner" id="sp"></div>
+      <button class="send-btn" id="sbtn" onclick="go()">SEND</button>
     </div>
 
-    <!-- Params (shown contextually) -->
-    <div class="params-section" id="params-search" style="display:none">
-      <div class="params-title">Query Parameters</div>
-      <div class="param-row">
-        <label>q=</label>
-        <input id="param-q" type="text" placeholder="search query…" oninput="updateURL()"/>
+    <!-- Params: trending -->
+    <div class="params" id="p-trending" style="display:none">
+      <div class="ptitle">Parameters</div>
+      <div class="prow">
+        <label>period=</label>
+        <select id="p-period" onchange="upURL()">
+          <option value="month" selected>month (default)</option>
+          <option value="day">day</option>
+          <option value="week">week</option>
+          <option value="quarter">quarter</option>
+          <option value="semi">semi-annually</option>
+          <option value="year">year</option>
+        </select>
       </div>
-      <div class="param-row">
-        <label>tags=</label>
-        <input id="param-tags" type="text" placeholder="milf,anal (comma-separated)" oninput="updateURL()"/>
+      <div class="prow">
+        <label>page=</label>
+        <input id="p-page" type="number" value="1" min="1" oninput="upURL()"/>
       </div>
     </div>
 
-    <div class="params-section" id="params-video" style="display:none">
-      <div class="params-title">Query Parameters</div>
-      <div class="param-row">
-        <label>slug=</label>
-        <input id="param-slug" type="text" placeholder="e.g. natsu-to-hako-1" oninput="updateURL()"/>
-      </div>
+    <!-- Params: search -->
+    <div class="params" id="p-search" style="display:none">
+      <div class="ptitle">Parameters</div>
+      <div class="prow"><label>q=</label><input id="p-q" type="text" placeholder="search query…" oninput="upURL()"/></div>
+      <div class="prow"><label>tags=</label><input id="p-tags" type="text" placeholder="milf,anal" oninput="upURL()"/></div>
+    </div>
+
+    <!-- Params: video -->
+    <div class="params" id="p-video" style="display:none">
+      <div class="ptitle">Parameters</div>
+      <div class="prow"><label>slug=</label><input id="p-slug" type="text" placeholder="e.g. natsu-to-hako-1" oninput="upURL()"/></div>
     </div>
 
     <!-- Response header -->
-    <div class="response-header">
-      <div class="response-title">Response</div>
-      <span class="status-pill" id="status-pill" style="display:none"></span>
-      <span class="time-label" id="time-label"></span>
+    <div class="resp-head">
+      <div class="resp-title">Response</div>
+      <span class="spill" id="spill" style="display:none"></span>
+      <span class="tl" id="tl"></span>
     </div>
 
-    <!-- Tabs (for home sections) -->
-    <div class="tabs" id="section-tabs" style="display:none"></div>
-
-    <!-- Card grid (for home/trending/search) -->
-    <div class="cards-grid" id="cards-grid" style="display:none"></div>
-
+    <!-- Section tabs (home) -->
+    <div class="tabs" id="tabs" style="display:none"></div>
+    <!-- Card grid -->
+    <div class="cards" id="grid" style="display:none"></div>
     <!-- Raw JSON -->
-    <pre id="response-box"><div class="placeholder-msg">← Select an endpoint and press SEND</div></pre>
+    <pre id="rbox"><div class="ph">← Choose an endpoint and press SEND</div></pre>
 
   </section>
 </main>
 
 <script>
-// ── State ──────────────────────────────────────────────────
-const BASE = window.location.origin;
-let currentEp  = 'home';
-let lastData   = null;
-let activeSection = null;
-
-// ── Endpoint → URL mapping ─────────────────────────────────
-const EP_URLS = {
+const EP = {
   home:     '/api/home',
   trending: '/api/trending',
+  random:   '/api/random',
   search:   '/api/search',
   video:    '/api/video',
 };
+let curEp = 'home', lastData = null, activeSections = null;
 
-function selectEndpoint(ep, btn) {
-  currentEp = ep;
-  document.querySelectorAll('.endpoint-btn[data-ep]').forEach(b => b.classList.remove('active'));
+function sel(ep, btn) {
+  curEp = ep;
+  document.querySelectorAll('.ep-btn[data-ep]').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-
-  document.getElementById('params-search').style.display = ep === 'search' ? 'block' : 'none';
-  document.getElementById('params-video').style.display  = ep === 'video'  ? 'block' : 'none';
-
-  document.getElementById('url-input').value = EP_URLS[ep];
-  updateURL();
-  clearResponse();
+  ['trending','search','video'].forEach(p => {
+    document.getElementById('p-'+p).style.display = ep === p ? 'block' : 'none';
+  });
+  document.getElementById('url').value = EP[ep];
+  upURL();
+  clear();
 }
 
-function updateURL() {
-  const ep = currentEp;
-  let url  = EP_URLS[ep];
-  if (ep === 'search') {
-    const q    = document.getElementById('param-q').value.trim();
-    const tags = document.getElementById('param-tags').value.trim();
-    const params = new URLSearchParams();
-    if (q)    params.set('q', q);
-    if (tags) params.set('tags', tags);
-    if (params.toString()) url += '?' + params.toString();
+function upURL() {
+  const ep = curEp;
+  let url = EP[ep];
+  if (ep === 'trending') {
+    const period = document.getElementById('p-period').value;
+    const page   = document.getElementById('p-page').value;
+    const p = new URLSearchParams({ period });
+    if (parseInt(page) > 1) p.set('page', page);
+    url += '?' + p;
+  } else if (ep === 'search') {
+    const q    = document.getElementById('p-q').value.trim();
+    const tags = document.getElementById('p-tags').value.trim();
+    const p = new URLSearchParams();
+    if (q) p.set('q', q);
+    if (tags) p.set('tags', tags);
+    if (p.toString()) url += '?' + p;
   } else if (ep === 'video') {
-    const slug = document.getElementById('param-slug').value.trim();
+    const slug = document.getElementById('p-slug').value.trim();
     if (slug) url += '?slug=' + encodeURIComponent(slug);
   }
-  document.getElementById('url-input').value = url;
+  document.getElementById('url').value = url;
 }
 
-function quickFetch(url) {
-  document.getElementById('url-input').value = url;
-  sendRequest();
+function quick(url) {
+  document.getElementById('url').value = url;
+  go();
 }
 
-// ── Send Request ──────────────────────────────────────────
-async function sendRequest() {
-  const url = document.getElementById('url-input').value.trim();
+async function go() {
+  const url = document.getElementById('url').value.trim();
   if (!url) return;
-
-  const btn     = document.getElementById('send-btn');
-  const spinner = document.getElementById('spinner');
-
-  btn.disabled     = true;
-  spinner.style.display = 'block';
-
-  clearResponse();
-
+  const btn = document.getElementById('sbtn');
+  const sp  = document.getElementById('sp');
+  btn.disabled = true; sp.style.display = 'block';
+  clear();
   const t0 = performance.now();
   try {
-    const res = await fetch(url);
-    const ms  = Math.round(performance.now() - t0);
+    const res  = await fetch(url);
+    const ms   = Math.round(performance.now() - t0);
     const json = await res.json();
-
     lastData = json;
     showStatus(res.status, ms);
-    renderResponse(json, res.status);
-  } catch (err) {
+    render(json);
+  } catch(e) {
     showStatus(0, 0);
-    document.getElementById('response-box').textContent = '// Network error: ' + err.message;
+    document.getElementById('rbox').textContent = '// Network error: ' + e.message;
   } finally {
-    btn.disabled          = false;
-    spinner.style.display = 'none';
+    btn.disabled = false; sp.style.display = 'none';
   }
 }
 
 function showStatus(code, ms) {
-  const pill = document.getElementById('status-pill');
-  pill.style.display = 'inline-block';
-  pill.textContent   = code || 'ERR';
-  pill.className     = 'status-pill ' + (code >= 200 && code < 300 ? 'ok' : 'err');
-  document.getElementById('time-label').textContent = ms ? `${ms} ms` : '';
+  const s = document.getElementById('spill');
+  s.style.display = 'inline-block';
+  s.textContent = code || 'ERR';
+  s.className = 'spill ' + (code >= 200 && code < 300 ? 'ok' : 'err');
+  document.getElementById('tl').textContent = ms ? ms + ' ms' : '';
 }
 
-function clearResponse() {
-  document.getElementById('response-box').innerHTML = '<div class="placeholder-msg">Loading…</div>';
-  document.getElementById('cards-grid').style.display  = 'none';
-  document.getElementById('section-tabs').style.display = 'none';
-  document.getElementById('cards-grid').innerHTML = '';
-  document.getElementById('section-tabs').innerHTML = '';
-  document.getElementById('status-pill').style.display = 'none';
-  document.getElementById('time-label').textContent = '';
+function clear() {
+  document.getElementById('rbox').innerHTML = '<div class="ph">Loading…</div>';
+  document.getElementById('grid').style.display = 'none';
+  document.getElementById('tabs').style.display = 'none';
+  document.getElementById('grid').innerHTML = '';
+  document.getElementById('tabs').innerHTML = '';
+  document.getElementById('spill').style.display = 'none';
+  document.getElementById('tl').textContent = '';
 }
 
-// ── Render Response ───────────────────────────────────────
-function renderResponse(data, status) {
-  document.getElementById('response-box').innerHTML = syntaxHighlight(JSON.stringify(data, null, 2));
+function render(data) {
+  document.getElementById('rbox').innerHTML = highlight(JSON.stringify(data, null, 2));
 
-  // Home sections → tabs + cards
+  // Home → tabbed sections
   if (data.ok && data.sections) {
-    const sections = data.sections;
-    const keys = Object.keys(sections);
+    const keys = Object.keys(data.sections);
     if (keys.length) {
-      renderSectionTabs(keys, sections);
+      activeSections = data.sections;
+      const tabs = document.getElementById('tabs');
+      tabs.style.display = 'flex';
+      tabs.innerHTML = keys.map((k,i) =>
+        `<button class="tab-btn ${i===0?'active':''}" onclick="showSec('${k}',this)">${k}</button>`
+      ).join('');
+      showSec(keys[0], tabs.querySelector('.tab-btn'));
     }
     return;
   }
 
-  // Trending / Search results → cards
-  if (data.ok && Array.isArray(data.results) && data.results.length) {
-    renderCards(data.results);
+  // Trending → ranked cards
+  if (data.ok && Array.isArray(data.videos) && data.videos.length) {
+    renderCards(data.videos, curEp === 'trending');
     return;
   }
 
   // Single video
-  if (data.ok && data.video) {
-    renderCards([data.video]);
-  }
+  if (data.ok && data.video) { renderCards([data.video]); }
 }
 
-function renderSectionTabs(keys, sections) {
-  const tabsEl = document.getElementById('section-tabs');
-  tabsEl.style.display = 'flex';
-  tabsEl.innerHTML = keys.map((k, i) =>
-    `<button class="tab-btn ${i===0?'active':''}" onclick="showSection('${k}',this)">${k}</button>`
-  ).join('');
-  showSection(keys[0], tabsEl.querySelector('.tab-btn'));
-  activeSection = sections;
-}
-
-function showSection(name, btn) {
+function showSec(name, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  renderCards(activeSection[name] || []);
+  renderCards(activeSections[name] || []);
 }
 
-function renderCards(videos) {
-  const grid = document.getElementById('cards-grid');
+function renderCards(videos, showRank = false) {
+  const grid = document.getElementById('grid');
   grid.style.display = 'grid';
   grid.innerHTML = videos.map(v => `
-    <div class="vid-card" onclick="loadVideo('${v.slug||''}')">
-      <img src="${v.cover_url||''}" alt="${escHtml(v.name||'')}" loading="lazy"
-           onerror="this.style.background='#333';this.removeAttribute('src')"/>
+    <div class="card" onclick="loadVideo('${v.slug||''}')">
+      <img src="${v.cover_url||''}" alt="${esc(v.name||'')}" loading="lazy"
+           onerror="this.style.background='#2a2a2a';this.removeAttribute('src')"/>
       <div class="card-info">
-        <div class="card-name">${escHtml(v.name||v.slug||'')}</div>
-        <div class="card-views">👁 ${(v.views||0).toLocaleString()}</div>
+        ${showRank && v.monthly_rank ? `<div class="rank-badge">#${v.monthly_rank}</div>` : ''}
+        <div class="card-name">${esc(v.name||v.slug||'')}</div>
+        <div class="card-sub">
+          ${v.views ? `<span>👁 ${v.views.toLocaleString()}</span>` : ''}
+          ${v.brand ? `<span title="brand">${esc(v.brand)}</span>` : ''}
+        </div>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 function loadVideo(slug) {
   if (!slug) return;
-  selectEndpoint('video', document.querySelector('[data-ep="video"]'));
-  document.getElementById('param-slug').value = slug;
-  updateURL();
-  sendRequest();
+  sel('video', document.querySelector('[data-ep="video"]'));
+  document.getElementById('p-slug').value = slug;
+  upURL(); go();
 }
 
-// ── JSON Syntax Highlighter ───────────────────────────────
-function syntaxHighlight(json) {
+function highlight(json) {
   return json.replace(
-    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
-    match => {
-      let cls = 'json-num';
-      if (/^"/.test(match)) {
-        cls = /:$/.test(match) ? 'json-key' : 'json-str';
-      } else if (/true|false/.test(match)) {
-        cls = 'json-bool';
-      } else if (/null/.test(match)) {
-        cls = 'json-null';
-      }
-      return `<span class="${cls}">${match}</span>`;
+    /("(\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
+    m => {
+      let c = 'json-num';
+      if (/^"/.test(m)) c = /:$/.test(m) ? 'json-key' : 'json-str';
+      else if (/true|false/.test(m)) c = 'json-bool';
+      else if (/null/.test(m)) c = 'json-null';
+      return `<span class="${c}">${m}</span>`;
     }
   );
 }
-
-function escHtml(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
-// ── URL bar enter key ─────────────────────────────────────
-document.getElementById('url-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') sendRequest();
-});
 </script>
 </body>
 </html>
